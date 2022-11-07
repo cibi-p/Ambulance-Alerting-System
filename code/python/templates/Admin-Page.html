@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin Page</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <header>
+            <h1>Admin Page of AmbulanceAlertingSystem</h1>
+        </header>
+        <div class="container">
+            <div class="form-container">
+                <form action="/admin" method="POST">
+                    <label>
+                        <p>Name</p>
+                        <input type="text" name="name"/>
+                    </label>
+
+                    <label>
+                        <p>Email ID</p>
+                        <input type="email" name="Email"/>
+                    </label>
+
+                    <label>
+                        <p>Proffession</p>
+                        <select name="proffession">
+                            <option value="hpt">Hospital</option>
+                            <option value="trp">Traffic Police</option>
+                            <option vlaue="a_d">Ambulance driver</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        <p>Password</p>
+                        <input type="password" name="password"/>
+                    </label>
+                    <br>
+                    <br>
+                    <input type="submit" name="submit"/>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

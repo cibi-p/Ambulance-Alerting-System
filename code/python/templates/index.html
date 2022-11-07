@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ambulance Alerting System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100%;
+            background-color: #A3C7D6;
+            padding: 0;
+        }
+
+        header {
+            padding: 10px 0px 10px 50px;
+            background-color: #90A17D;
+            box-sizing: border-box;
+        }
+
+        header h1 {
+            color: #FFE1E1;
+        }
+
+        .login-label {
+            width:max-content;
+            margin: 5px 0;
+            font-size: 20px;
+            color: #61764B;
+            font-weight: bold;
+        }
+
+        .login-container {
+            height:93vh;
+            width:100% !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width:fit-content;
+        }
+
+        .login {
+            display: block;
+            margin: auto;
+            background-color: #FFE1E1;
+            padding: 40px;
+            border-radius: 40px;
+        }
+
+        .btn {
+            display: block;
+            margin: auto;
+            margin-top: 20px;
+            background-color: #61764B;
+            padding: 8px 20px;
+            border-radius: 10px;
+            border: none;
+            font-size: 20px;
+            color: #FFE1E1;
+        }
+
+        .q {
+            height: 100%;
+            color: green;
+        }
+
+        #Email,
+        #password {
+            font-size: 20px;
+            padding: 8px;
+            border-radius: 10px;
+            border: none;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Ambulance Alerting System</h1>
+    </header>
+    <div class="login-container">
+        <div class="login">
+            <form action="" method="POST">
+                <label for="Email">
+                    <p class="e-mail-label login-label">Email:</p>
+                </label>
+                <input type="email" id="Email" placeholder="Example@example.com" />
+                <label for="password">
+                    <p class="password-label login-label">Password:</p>
+                </label>
+                <input type="password" id="password" placeholder="********" />
+                <input type="submit" class="submitt-btn btn" />
+            </form>
+        </div>
+    </div>
+</body>
+</html>
