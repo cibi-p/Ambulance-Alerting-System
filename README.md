@@ -62,9 +62,9 @@ SQL to store the data
 MYSQL command to enter the records
 
 ### Technology:
-Python
-Flash frame work
-Html
-Css
-SQL
+- Python
+- Flash frame work
+- Html
+- Css
+- SQL
 
