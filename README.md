@@ -5,10 +5,10 @@
 It is common sight at busy traffic junctions where ambulances struggling find a way to carry patients for treatment on golden hour. Employing Drones which can carry payloads of 100kg, min at designated high traffic circuits will help many patients
 
 ## Problem statement I need to work on:
-	Now a days ambulances are facing lot of trouble in the traffic. We need to make reach the ambulances to the hospital in thte required time. We need to help the patient reach the best hospital best on the symptoms and the doctor availability
+Now a days ambulances are facing lot of trouble in the traffic. We need to make reach the ambulances to the hospital in thte required time. We need to help the patient reach the best hospital best on the symptoms and the doctor availability
 
 ## Concept/Solution:
-	To Create a platform for 1) Ambulance Driver, 2) People, 3) Traffic Police, 4) Hospital
+To Create a platform for 1) Ambulance Driver, 2) People, 3) Traffic Police, 4) Hospital
   
 ### Ambulance Driver
 #### What They do?
