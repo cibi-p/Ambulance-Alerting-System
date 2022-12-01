@@ -1,5 +1,5 @@
 # Ambulance-Alerting-System
-7th Sem College Project.
+7th Semester College Project.
 
 ## Problem statement from Smart india Hackathon:
 It is common sight at busy traffic junctions where ambulances struggling find a way to carry patients for treatment on golden hour. Employing Drones which can carry payloads of 100kg, min at designated high traffic circuits will help many patients
