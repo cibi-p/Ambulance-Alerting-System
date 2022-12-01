@@ -105,12 +105,27 @@ def ambulancepage():
         sql=f"SELECT location,name,s_s_status,discord_name FROM trafficsignal WHERE f_rom='{route_from}' AND t_o='{route_to}'"
         cursor.execute(sql)
         signal_details=cursor.fetchall()
+        sql=f"SELECT hospital_name,accept_patient FROM hospital where location='{route_to}'"
+        cursor.execute(sql)
+        hospital_details=cursor.fetchall()
+        print(hospital_details)
+        for ki in range(len(hospital_details)):
+            hospital_details[ki]=list(hospital_details[ki])
+            if hospital_details[ki][1]==0:
+                hospital_details[ki][1]="No"
+            else:
+                hospital_details[ki][1]="Yes"
+        signal_details=list(signal_details)
+        for ki in range(len(signal_details)):
+            signal_details[ki]=list(signal_details[ki])
+            print(signal_details[ki][2])
+            if signal_details[ki][2]==0:
+                signal_details[ki][2]="Busy"
+            else:
+                signal_details[ki][2]="Free"
+            print(signal_details[ki][2])
         print(signal_details)
-        if signal_details[0][2]==0:
-            signal_status="Busy"
-        else:
-            signal_status="Free"
-        return render_template('Ambulance_driver_Page.html',tp_name=signal_details[0][1],tp_location=signal_details[0][0],s_status=signal_status,fromlist=fromlist)
+        return render_template('Ambulance_driver_Page.html',signal_details=signal_details,fromlist=fromlist, hospital_details=hospital_details)
 
     return render_template('Ambulance_driver_Page.html',fromlist=fromlist)
 if __name__ == "__main__":

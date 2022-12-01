@@ -79,6 +79,24 @@
             background-color:blueviolet;
             color:white;
         }
+        td,th{
+            border:1px solid blueviolet;
+            padding:10px 20px;
+            margin:0;
+        }
+        .result-section{
+            display:flex;
+            flex-direction:column;
+            width:max-content;
+            margin:auto;
+        }
+        .result-section p{
+            text-align:center;
+            font-size:20px;
+            font-weight:bolder;
+            margin:0;
+            margin-top:40px;
+        }
     </style>
 </head>
 
@@ -118,10 +136,40 @@
     </div>
 
     <div  class="result-section">
-        <p><span>&#x2713;</span>The message has been sent to Hospital</p>
+        <!--<p><span>&#x2713;</span> The message has been sent to Hospital</p>
         <p><span>&#x2713;</span> The message is sent to traffic police: <b>{{tp_name}}</b>, at <b>{{tp_location}}</b></p>
         <p><span>&#x2713;</span> Currently the signal is <b class="signal-stat">{{s_status}}</b></p>
-        <p>For more details refresh the page.</p>
+        <p>For more details refresh the page.</p>-->
+        <p>Signals in between your destination</p>
+        <table>
+            <tr>
+                <th>Location</th>
+                <th>Signal Status</th>
+                <th>Traffic Police name</th>
+                <th>Message sent to clear traffic</th>
+            </tr>
+                {% for i in signal_details %}
+                <tr>
+                    <td>{{i[0]}}</td>
+                    <td>{{i[2]}}</td>
+                    <td>{{i[1]}}</td>
+                    <td>Yes</td>
+                </tr>
+                {% endfor %}
+        </table>
+        <p>Hospitals near your destination location</p>
+        <table>
+            <tr>
+                <th>Hospital Name</th>
+                <th>Bed available</th>
+            </tr>
+            {% for i in hospital_details %}
+            <tr>
+                <td>{{i[0]}}</td>
+                <td>{{i[1]}}</td>
+            </tr>
+            {% endfor %}
+        </table>
     </div>
 
     <script>
