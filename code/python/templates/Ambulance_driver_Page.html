@@ -1,0 +1,176 @@
+<html>
+
+<head>
+    <title>MapmyIndia Plugin - direction Plugin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="desciption" content="Mapmyindia Direction Plugin">
+    <!--
+    <script
+        src="https://apis.mapmyindia.com/advancedmaps/v1/38b95f70-a442-422f-adf0-0bb5d92a6e90/map_load?v=1.5"></script>
+    <script
+        src="https://apis.mapmyindia.com/advancedmaps/api/38b95f70-a442-422f-adf0-0bb5d92a6e90/map_sdk_plugins"></script>
+        
+        <script
+        src="https://apis.mapmyindia.com/advancedmaps/v1/0b187d2c-e38a-4420-add2-feed3a09974c/map_load?v=1.5"></script>
+    <script
+        src="https://apis.mapmyindia.com/advancedmaps/api/0b187d2c-e38a-4420-add2-feed3a09974c/map_sdk_plugins"></script>
+        -->
+
+
+    <style>
+        .body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        #map {
+            width: 500px;
+            height: 500px;
+            margin: 0;
+            padding: 0;
+            background-color: red;
+        }
+
+        #nearby_search {
+            width: 500px !important;
+            background-color: green;
+        }
+
+        h1 {
+            margin: 10px;
+            padding: 0;
+        }
+
+        .headerr p {
+            text-align: center;
+        }
+        .from-to-form{
+            display:block;
+            width:300px;
+            padding:20px;
+            margin:auto;
+            background-color:aquamarine;
+            border-radius:10px;
+        }
+        .from-to-form p{
+            width:max-content !important;
+            font-size:20px;
+        }
+        .from-to-form select{
+            width:200px;
+            padding:8px;
+            font-size:18px;
+            border-radius:10px;
+            background-color:bisque;
+            border:none;
+        }
+        .from-to-form input{
+            width:100px;
+            padding:8px;
+            margin:auto;
+            margin-top:20px;
+            display:block;
+            border-radius:10px;
+            border:none;
+            background-color:blueviolet;
+            color:white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="body">
+        <div class="headerr">
+            <h1>Ambulance Driver Page</h1>
+            <p>from Ambulance alerting system</p>
+        </div>
+        <div id="nearby_search" style=" margin: 5px;width:99%;height:250px;overflow-y: auto;border-radius: 10px;"></div>
+        <div id="map"></div>
+        <div id="direction"></div>
+    </div>
+    <br>
+    <br>
+    <div class="from-to-form">
+        <form action="/ambulance-drive" method="POST">
+            <label>
+                <p>From:</p>
+                <select name="ambulancedriver-from">
+                    {% for j in fromlist %}
+                        <option value="{{j[0]}}">{{j[0]}}</option>
+                    {% endfor %}
+                </select>
+                <label>
+                    <p>To:</p>
+                    <select name="ambulancedriver-to">
+                        {% for j in fromlist %}
+                            <option value="{{j[1]}}">{{j[1]}}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+            </label>
+            <br>
+            <input type="submit" name="routesubmit"/>
+        </form>
+    </div>
+
+    <div  class="result-section">
+        <p><span>&#x2713;</span>The message has been sent to Hospital</p>
+        <p><span>&#x2713;</span> The message is sent to traffic police: <b>{{tp_name}}</b>, at <b>{{tp_location}}</b></p>
+        <p><span>&#x2713;</span> Currently the signal is <b class="signal-stat">{{s_status}}</b></p>
+        <p>For more details refresh the page.</p>
+    </div>
+
+    <script>
+        //Getting Geolocation using
+        var lat = 12.5437738, log = 78.3299922;
+        var destination = "Dhandavamoorthi Hospital";
+        navigator.geolocation.getCurrentPosition(showPosition);
+
+        function showPosition(position) {
+            lat = position.coords.latitude;
+            log = position.coords.longitude;
+            console.log(lat);
+            console.log(log);
+        }
+
+
+        /*Map Initialization*/
+        var map = new MapmyIndia.Map('map', { center: [lat, log], zoom: 10, search: false });
+
+        var options = {
+            divId: 'nearby_search',
+            map: map,
+            keywords: 'Hospital',
+            refLocation: [lat, log],
+            fitbounds: true,
+            click_callback: function (d) {
+                console.log(d);
+                update_direction(d["latitude"], d["longitude"]);
+            }
+        }
+        console.log(lat + ',' + log);
+        var nr = MapmyIndia.nearby(options);
+        console.log(nr)
+        /*direction plugin initialization*/
+        function update_direction(lat1, log1) {
+            var direction_option = {
+                map: map,
+                start: lat + ',' + log,
+                end: lat1 + ',' + log1,
+                resource: 'route_traffic',
+                callback: function (data) { console.log(data); }
+            }
+
+            console.log(lat + ',' + log);
+            var direction_plugin = MapmyIndia.direction(direction_option);
+            //direction_plugin.remove();
+            console.log(dist + "<--");
+        }
+    </script>
+</body>
+
+</html>

@@ -81,23 +81,34 @@
 </head>
 
 <body>
+<script>
+    function password_check(){
+        console.log("{{password}}")
+    if ({{password}}=="False")
+    {
+        console.log("{{password}}")
+        alert("You entered a wrong password or email id");
+    }
+}
+</script>
     <header>
         <h1>Ambulance Alerting System</h1>
     </header>
     <div class="login-container">
         <div class="login">
-            <form action="" method="POST">
+            <form action="/" method="POST">
                 <label for="Email">
                     <p class="e-mail-label login-label">Email:</p>
                 </label>
-                <input type="email" id="Email" placeholder="Example@example.com" />
+                <input type="email" id="Email" name="email" placeholder="Example@example.com" />
                 <label for="password">
                     <p class="password-label login-label">Password:</p>
                 </label>
-                <input type="password" id="password" placeholder="********" />
+                <input type="password" id="password" name="password" placeholder="********" />
                 <input type="submit" class="submitt-btn btn" />
             </form>
         </div>
     </div>
+    <p>{{password}}</p>
 </body>
 </html>

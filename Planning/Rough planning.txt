@@ -1,0 +1,4 @@
+Already created an admin page to store the detials of the doctor, traffic police, ambulance drive
+
+09/11/2020
+To link the login page with the python and database. So it validate wheater the user in the database and redirect to the respective webpage

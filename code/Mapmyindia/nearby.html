@@ -1,0 +1,37 @@
+<html>
+   <head>
+      <title>MapmyIndia Plugin - Nearby Plugin</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="desciption" content="Mapmyindia Nearby Plugin">
+      <script
+        src="https://apis.mapmyindia.com/advancedmaps/v1/38b95f70-a442-422f-adf0-0bb5d92a6e90/map_load?v=1.5"></script>
+    <script
+        src="https://apis.mapmyindia.com/advancedmaps/api/38b95f70-a442-422f-adf0-0bb5d92a6e90/map_sdk_plugins"></script>
+      <style>
+         body{margin: 0}
+         #map{
+         width: 99%; height: 300px;margin:0;padding: 0;
+         }
+      </style>
+   </head>
+   <body>
+      <div id="nearby_search" style=" margin: 5px;width:99%;height:250px;overflow-y: auto;border-radius: 10px;"></div>
+      <div id="map"></div>
+      <script>
+         /*Map Initialization*/
+          var map = new MapmyIndia.Map('map', {center: [28.09, 78.3], zoom: 5, search: false});
+         
+          /*Nearby plugin initialization*/
+            var options={
+                    divId:'nearby_search',
+                    map:map,
+                    keywords:'Hospital',
+                    refLocation:[28.632735,77.219696],
+                    fitbounds:true,
+                    click_callback:function(d){alert(d);}
+            }
+         
+             var nr=MapmyIndia.nearby(options); 
+      </script>
+   </body>
+</html>

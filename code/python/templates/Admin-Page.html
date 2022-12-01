@@ -3,38 +3,117 @@
     <head>
         <title>Admin Page</title>
         <meta charset="UTF-8"/>
+        <style>
+            .Traffic-Police-container,.hospital-container{
+                display:none;
+            }
+            body{
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+                align-items:center;
+                background-color:bisque
+            }
+        </style>
     </head>
     <body>
+        <script>
+            function proffesion_question(value){
+                if(value=="trp"){
+                document.getElementsByClassName('Traffic-Police-container')[0].style.display="block";
+                document.getElementsByClassName('hospital-container')[0].style.display="none";
+                }
+                else if(value=="hpt"){
+                    document.getElementsByClassName('Traffic-Police-container')[0].style.display="none";
+                    document.getElementsByClassName('hospital-container')[0].style.display="block";
+                }
+                else
+                {
+                    document.getElementsByClassName('Traffic-Police-container')[0].style.display="none";
+                    document.getElementsByClassName('hospital-container')[0].style.display="none";
+                }
+            }
+        </script>
+
         <header>
-            <h1>Admin Page of AmbulanceAlertingSystem</h1>
+            <h1 class="hello1">Admin Page of AmbulanceAlertingSystem</h1>
         </header>
-        <div class="container">
+        <div class="container" id="container">
             <div class="form-container">
                 <form action="/admin" method="POST">
                     <label>
                         <p>Name</p>
-                        <input type="text" name="name"/>
+                        <input type="text" name="name" required />
                     </label>
 
                     <label>
                         <p>Email ID</p>
-                        <input type="email" name="Email"/>
+                        <input type="email" name="Email" required/>
                     </label>
 
                     <label>
                         <p>Proffession</p>
-                        <select name="proffession">
+                        <select name="proffession" id="proffesion" onchange="proffesion_question(value);" required>
+                            <option disabled selected>--select an option--</option>
                             <option value="hpt">Hospital</option>
                             <option value="trp">Traffic Police</option>
-                            <option vlaue="a_d">Ambulance driver</option>
+                            <option value="amd">Ambulance driver</option>
                         </select>
                     </label>
 
                     <label>
                         <p>Password</p>
-                        <input type="password" name="password"/>
+                        <input type="password" name="password" required/>
                     </label>
                     <br>
+                    <br>
+                    <div class="Traffic-Police-container">
+                        <label>
+                            <p>location</p>
+                            <input type="text" class="location" name="location"/>
+                        </label>
+                        <label>
+                            <p>Discord user name:</p>
+                            <input type="text" class="d_name" name="d_name"/>
+                        </label>
+                        <label>
+                            <p>from:</p>
+                            <input type="text" class="from1" name="from1"/>
+                        </label>
+                        <label>
+                            <p>to:</p>
+                            <input type="text" class="to1" name="to1"/>
+                        </label>
+                        <label>
+                            <p>from:</p>
+                            <input type="text" class="from1" name="from2"/>
+                        </label>
+                        <label>
+                            <p>to:</p>
+                            <input type="text" class="to1" name="to2"/>
+                        </label>
+                    </div>
+                    <div class="hospital-container">
+                        <label>
+                            <p>Hospital Name:</p>
+                            <input type="text" class="hospital" name="hospital"/>
+                        </label>
+                        <label>
+                            <p>Ready to attend patient:</p>
+                            <select name="attendpatient">
+                                <option value=1>yes</option>
+                                <option value=0>No</option>
+                            </select>
+                        </label>
+                        <label>
+                            <p>Discord user name:</p>
+                            <input type="text" class="d_name-d" name="d_name-d"/>
+                        </label>
+                        <label>
+                            <p>Hospital Location:</p>
+                            <input type="text" class="hospital-location" name="hospital-location"/>
+                        </label>
+                    </div>
                     <br>
                     <input type="submit" name="submit"/>
                 </form>
