@@ -21,7 +21,7 @@ def run_discord_bot():
         print(f'{username}: {u_message} in {channel}')
         await message.channel.send(u_message)
 
-    client.run(os.getenv('TOKEN')) 
+    client.run(os.getenv('TOKEN'))  
 
 if __name__ == '__main__':
     run_discord_bot()
