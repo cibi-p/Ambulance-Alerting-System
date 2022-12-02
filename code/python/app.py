@@ -1,6 +1,14 @@
 from flask import Flask, render_template, request, redirect
 import mysql.connector
+import os
+from dotenv import load_dotenv
+from discordwebhook import Discord
 
+
+load_dotenv()
+token=os.getenv('TOKEN')
+disc=Discord(url=os.getenv('Trafic_webhook'))
+disc2=Discord(url=os.getenv('hospital_webhook'))
 app=Flask(__name__)
 
 @app.route('/',methods=["GET","POST"])
@@ -94,7 +102,7 @@ def ambulancepage():
             user="root",
             password="2002",
             database="AmbulanceAlertingSystem"
-        )
+    )
     cursor = db.cursor()
     cursor.execute('SELECT f_rom,t_o from trafficsignal')
     fromlist=cursor.fetchall()
@@ -109,12 +117,16 @@ def ambulancepage():
         cursor.execute(sql)
         hospital_details=cursor.fetchall()
         print(hospital_details)
+        text_hospital_name=''
+        text_hospital=f"A patient is comming"
         for ki in range(len(hospital_details)):
             hospital_details[ki]=list(hospital_details[ki])
             if hospital_details[ki][1]==0:
                 hospital_details[ki][1]="No"
             else:
                 hospital_details[ki][1]="Yes"
+            text_hospital_name+=f"{hospital_details[ki][0]}, "
+        disc2.post(content=f"A patient is comming to {route_to}. Your hospital {text_hospital_name} cover in this location, get ready with the bed")
         signal_details=list(signal_details)
         for ki in range(len(signal_details)):
             signal_details[ki]=list(signal_details[ki])
@@ -124,9 +136,15 @@ def ambulancepage():
             else:
                 signal_details[ki][2]="Free"
             print(signal_details[ki][2])
+            discord_notification=str(f"Ambulance is comming in {signal_details[ki][0]}, {signal_details[ki][1]}. free the road from {route_from} to {route_to}")
+            print(discord_notification)
+            disc.post(content=discord_notification)
         print(signal_details)
+        
         return render_template('Ambulance_driver_Page.html',signal_details=signal_details,fromlist=fromlist, hospital_details=hospital_details)
 
     return render_template('Ambulance_driver_Page.html',fromlist=fromlist)
+
 if __name__ == "__main__":
     app.run()
+    
