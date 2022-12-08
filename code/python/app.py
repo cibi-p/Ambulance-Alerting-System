@@ -31,9 +31,9 @@ def home():
         if len(result)!=0:
             if result[0][0]=="hpt":
                 print(result)
-                return render_template("hospital.html")
+                return redirect("/hospital")
             elif result[0][0]=="trp":
-                return render_template("traffic_police.html")
+                return redirect("/traffic-police")
             else:
                 return redirect('/ambulance-drive')
         else:
@@ -94,7 +94,78 @@ def admin():
         return "<h1>Record added Successfully</h1>"
     return render_template('Admin-Page.html')
 
-
+@app.route('/hospital', methods=['GET','POST'])
+def hospital():
+    db=mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="2002",
+            database="AmbulanceAlertingSystem"
+    )
+    cursor =db.cursor()
+    cursor.execute('SELECT hospital_name,accept_patient FROM hospital')
+    hospital_name_hp=cursor.fetchall()
+    for ki in range(len(hospital_name_hp)):
+        hospital_name_hp[ki]=list(hospital_name_hp[ki])
+        if hospital_name_hp[ki][1]==1:
+            hospital_name_hp[ki][1]='Yes'
+        else:
+            hospital_name_hp[ki][1]='No'
+    print(hospital_name_hp)
+    if request.method=='POST':
+        hospital_name_get=request.form.get('hospital_name_hp')
+        ap_accept_patient=request.form.get('accept_patient')
+        sql=f'UPDATE hospital SET accept_patient={ap_accept_patient} WHERE hospital_name="{hospital_name_get}"'
+        print(sql)
+        cursor.execute(sql)
+        db.commit()
+        sql=f'SELECT hospital_name,accept_patient FROM hospital WHERE hospital_name="{hospital_name_get}"'
+        cursor.execute(sql)
+        hospital_name_hp2=cursor.fetchall()
+        for ki in range(len(hospital_name_hp2)):
+            hospital_name_hp2[ki]=list(hospital_name_hp2[ki])
+            if hospital_name_hp2[ki][1]==1:
+                hospital_name_hp2[ki][1]='Yes'
+            else:
+                hospital_name_hp2[ki][1]='No'
+        return render_template('hospital.html',hospital_name_hp=hospital_name_hp2,record_updated="Changed successfully")
+    return render_template('hospital.html',hospital_name_hp=hospital_name_hp)
+@app.route('/traffic-police', methods=['GET','POST'])
+def traffic_poice():
+    db=mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="2002",
+            database="AmbulanceAlertingSystem"
+    )
+    cursor =db.cursor()
+    cursor.execute('SELECT DISTINCT location,s_s_status FROM trafficsignal')
+    traffic_police_tp=cursor.fetchall()
+    for ki in range(len(traffic_police_tp)):
+        traffic_police_tp[ki]=list(traffic_police_tp[ki])
+        if traffic_police_tp[ki][1]==1:
+            traffic_police_tp[ki][1]='Free'
+        else:
+            traffic_police_tp[ki][1]='Busy'
+    print(traffic_police_tp)
+    if request.method=='POST':
+        traffic_location_tp=request.form.get('traffic_name_tp')
+        signal_statu_tp=request.form.get('Signal_Status')
+        sql=f'UPDATE trafficsignal SET s_s_status={signal_statu_tp} WHERE location="{traffic_location_tp}"'
+        print(sql)
+        cursor.execute(sql)
+        db.commit()
+        sql=f'SELECT DISTINCT location, s_s_status FROM trafficsignal WHERE location="{traffic_location_tp}"'
+        cursor.execute(sql)
+        traffic_police_tp2=cursor.fetchall()
+        for ki in range(len(traffic_police_tp2)):
+            traffic_police_tp2[ki]=list(traffic_police_tp2[ki])
+            if traffic_police_tp2[ki][1]==1:
+                traffic_police_tp2[ki][1]='Free'
+            else:
+                traffic_police_tp2[ki][1]='Busy'
+        return render_template('traffic_police.html',traffic_list=traffic_police_tp2,record_updated="Changed successfully")
+    return render_template('traffic_police.html',traffic_list=traffic_police_tp)
 @app.route('/ambulance-drive',methods=["GET","POST"])
 def ambulancepage():
     db=mysql.connector.connect(

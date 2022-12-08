@@ -1,1 +1,65 @@
-<h1>Hospital Page</h1>
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body{
+                background-color:aquamarine;
+            }
+            .container{
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+                align-items:center;
+            }
+            .selection{
+                margin:50px;
+            }
+            .hospital_details{
+                margin:50px;
+            }
+            td,th{
+                border:1px solid blueviolet;
+                padding:10px 20px;
+            }
+            h1{
+                text-align:center;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Hospital Page</h1>
+        </header>
+        <div class="container">
+        <div class="selection">
+            <form action="/hospital" method="POST">
+                <select name="hospital_name_hp" onchange="">
+                    {% for i in hospital_name_hp %}
+                    <option value="{{i[0]}}">{{i[0]}}</option>
+                    {%endfor%}
+                </select>
+                <select name="accept_patient">
+                    <option value=1>Yes</option>
+                    <option value=0>No</option>
+                </select>
+                <input type="submit"/>
+            </form>
+        </div>
+        {{record_updated}}
+        <div class="hospital-details">
+            <table>
+                <tr>
+                    <th>Hospital Name</th>
+                    <th>Accept Patient</th>
+                </tr>
+                {% for i in hospital_name_hp %}
+                <tr>
+                    <td>{{i[0]}}</td>
+                    <td>{{i[1]}}</td>
+                </tr>
+                {%endfor%}
+            </table>
+        </div>
+    </div>
+    </body>
+</html>
