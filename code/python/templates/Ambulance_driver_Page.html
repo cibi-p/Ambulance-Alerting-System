@@ -4,12 +4,12 @@
     <title>MapmyIndia Plugin - direction Plugin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="desciption" content="Mapmyindia Direction Plugin">
-   
+     
     <script
         src="https://apis.mapmyindia.com/advancedmaps/v1/38b95f70-a442-422f-adf0-0bb5d92a6e90/map_load?v=1.5"></script>
     <script
         src="https://apis.mapmyindia.com/advancedmaps/api/38b95f70-a442-422f-adf0-0bb5d92a6e90/map_sdk_plugins"></script>
-      <!--   
+      <!-- 
         <script
         src="https://apis.mapmyindia.com/advancedmaps/v1/0b187d2c-e38a-4420-add2-feed3a09974c/map_load?v=1.5"></script>
     <script
@@ -108,6 +108,14 @@
         .map-map{
             display:flex;
             flex-direction:row;
+        }
+        @media screen and (max-width:1000px){
+            .map-map{
+                flex-direction:column;
+            }
+            #nearby_search{
+                margin:0 0 50px 0 !important;
+            }
         }
     </style>
 </head>
@@ -211,18 +219,18 @@
             fitbounds: true,
             click_callback: function (d) {
                 console.log(d);
-                update_direction(d["latitude"], d["longitude"]);
+                update_direction(d["placeName"].concat(", ",d["placeAddress"]), d["eLoc"]);
             }
         }
         console.log(lat + ',' + log);
         var nr = MapmyIndia.nearby(options);
         console.log(nr)
         /*direction plugin initialization*/
-        function update_direction(lat1, log1) {
+        function update_direction(addres,eloc) {
             var direction_option = {
                 map: map,
                 start: lat + ',' + log,
-                end: lat1 + ',' + log1,
+                end: {label:addres,geoposition:eloc},
                 resource: 'route_traffic',
                 callback: function (data) { console.log(data); }
             }
